@@ -18,9 +18,11 @@ There is a *public chat room* where you can get help at <https://uhps.slack.com>
 Before you can use UH-IaaS, you need to do some setup.
 Go to <https://access.uh-iaas.no/> and follow the steps described at <http://docs.uh-iaas.no/en/latest/login.html#first-time-login>.
 
-	Important - Copy and save the API password! 
-   	The password for API access is generated and shown here. 
-   	This is the only time that the API password is generated and shown to you.
+```
+Important - Copy and save the API password! 
+The password for API access is generated and shown here. 
+This is the only time that the API password is generated and shown to you.
+```
 
 ![alt text](bilder/access-05.png "Image of the screen where you get the API password")
 *Image of the screen where you get the API password*
@@ -31,19 +33,19 @@ Go to <https://access.uh-iaas.no/> and follow the steps described at <http://doc
 2. [SKIP THIS STEP IF YOU HAVE AN SSH KEY] If you do not have an SSH key, create a [new SSH key](https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/).
 3. Import your SSH key to openstack. Follow instructions at <http://docs.uh-iaas.no/en/latest/create-virtual-machine.html#setting-up-a-keypair>.
 
-	```shell
- 	 If you have openstack-cli set up you can upload your key from the command line:
+```
+ If you have openstack-cli set up you can upload your key from the command line:
 
-         openstack keypair create --public-key ~/.ssh/id_rsa.pub <name of key>
-	 e.g.:
-         openstack keypair create --public-key ~/.ssh/id_rsa.pub Dell_XPS15
-	```
+ openstack keypair create --public-key ~/.ssh/id_rsa.pub <name of key>
+e.g.:
+ openstack keypair create --public-key ~/.ssh/id_rsa.pub Dell_XPS15
+```
 	
 ## Add security group
 
 You shoud add SSH and ICMP access, as described at <http://docs.uh-iaas.no/en/latest/create-virtual-machine.html#allowing-ssh-and-icmp-access>.
 
-```shell
+```
 If you have openstack-cli set up you can create the security group from the command line:
 
 openstack security group create --description "Allow incoming SSH and ICMP" SSH_and_ICMP
