@@ -43,17 +43,20 @@ Go to <https://access.uh-iaas.no/> and follow the steps described at <http://doc
 
 You shoud add SSH and ICMP access, as described at <http://docs.uh-iaas.no/en/latest/create-virtual-machine.html#allowing-ssh-and-icmp-access>.
 
-	```shell
-       If you have openstack-cli set up you can create the security group from the command line:
+```shell
+If you have openstack-cli set up you can create the security group from the command line:
 
-        openstack security group create --description "Allow incoming SSH and ICMP" SSH_and_ICMP
-        openstack security group rule create --remote-ip 0.0.0.0/0 --dst-port 22 --protocol tcp --ingress SSH_and_ICMP
-        openstack security group rule create --remote-ip 0.0.0.0/0 --protocol icmp --ingress SSH_and_ICMP
+openstack security group create --description "Allow incoming SSH and ICMP" SSH_and_ICMP
+openstack security group rule create --remote-ip 0.0.0.0/0 --dst-port 22 --protocol tcp --ingress SSH_and_ICMP
+openstack security group rule create --remote-ip 0.0.0.0/0 --protocol icmp --ingress SSH_and_ICMP
 
-	This assumes openstack-cli version 3.x.
-	If you have problems, `openstack security group rule create --help` might help.
-	On e.g. version 2.x `openstack-cli` installs, `openstack security group rule create --src-ip 0.0.0.0/0 --proto icmp  SSH_and_ICM` might work.
-	```
+This assumes openstack-cli version 3.x. If you have problems, 
+ openstack security group rule create --help
+gives help.
+On e.g. version 2.x openstack-cli installs, 
+ openstack security group rule create --src-ip 0.0.0.0/0 --proto icmp  SSH_and_ICM 
+might work.
+```
 
 ## Make a server
 
@@ -65,17 +68,17 @@ Subsequent logins should go via <http://dashboard.uh-iaas.no/>.
 
 The IP address of your instance can be found in your "instances" section. 
 
-	```shell
-	Via the command line, this would be:
-	- Getting the info we need; images, flavours, networks:
-        openstack image list | grep -v deactivated
-        openstack flavor list
-        openstack network list
+```shell
+Via the command line, this would be:
+- Getting the info we need; images, flavours, networks:
+ openstack image list | grep -v deactivated
+ openstack flavor list
+ openstack network list
 
-	- Making a server:
-        openstack server create --image "<chosen image>" --flavor <chosen flavor> --security-group SSH_and_ICMP --security-group default --key-name <your key> --nic net-id=<the horribly long ID network number> <name of the server you wish to build>
-	e.g.:
-        openstack server create --image "GOLD Fedora 27" --flavor m1.small --security-group SSH_and_ICMP --security-group default --key-name Dell_XPS15 --nic net-id=dab01c68-c25d-4051-ad5b-7b7b07f16f05 myTestServer
-	```
+- Making a server:
+ openstack server create --image "<chosen image>" --flavor <chosen flavor> --security-group SSH_and_ICMP --security-group default --key-name <your key> --nic net-id=<the horribly long ID network number> <name of the server you wish to build>
+e.g.:
+ openstack server create --image "GOLD Fedora 27" --flavor m1.small --security-group SSH_and_ICMP --security-group default --key-name Dell_XPS15 --nic net-id=dab01c68-c25d-4051-ad5b-7b7b07f16f05 myTestServer
+```
 
 We can now check if the machine is working. 
