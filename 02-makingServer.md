@@ -31,16 +31,19 @@ Go to <https://access.uh-iaas.no/> and follow the steps described at <http://doc
 2. [SKIP THIS STEP IF YOU HAVE AN SSH KEY] If you do not have an SSH key, create a [new SSH key](https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/).
 3. Import your SSH key to openstack. Follow instructions at <http://docs.uh-iaas.no/en/latest/create-virtual-machine.html#setting-up-a-keypair>.
 
-	If you have openstack-cli set up you can upload your key from the command line:
+	```shell
+ 	 If you have openstack-cli set up you can upload your key from the command line:
 
          openstack keypair create --public-key ~/.ssh/id_rsa.pub <name of key>
 	 e.g.:
          openstack keypair create --public-key ~/.ssh/id_rsa.pub Dell_XPS15
-
+	```
+	
 ## Add security group
 
 You shoud add SSH and ICMP access, as described at <http://docs.uh-iaas.no/en/latest/create-virtual-machine.html#allowing-ssh-and-icmp-access>.
 
+	```shell
        If you have openstack-cli set up you can create the security group from the command line:
 
         openstack security group create --description "Allow incoming SSH and ICMP" SSH_and_ICMP
@@ -50,6 +53,7 @@ You shoud add SSH and ICMP access, as described at <http://docs.uh-iaas.no/en/la
 	This assumes openstack-cli version 3.x.
 	If you have problems, `openstack security group rule create --help` might help.
 	On e.g. version 2.x `openstack-cli` installs, `openstack security group rule create --src-ip 0.0.0.0/0 --proto icmp  SSH_and_ICM` might work.
+	```
 
 ## Make a server
 
@@ -61,6 +65,7 @@ Subsequent logins should go via <http://dashboard.uh-iaas.no/>.
 
 The IP address of your instance can be found in your "instances" section. 
 
+	```shell
 	Via the command line, this would be:
 	- Getting the info we need; images, flavours, networks:
         openstack image list | grep -v deactivated
@@ -71,5 +76,6 @@ The IP address of your instance can be found in your "instances" section.
         openstack server create --image "<chosen image>" --flavor <chosen flavor> --security-group SSH_and_ICMP --security-group default --key-name <your key> --nic net-id=<the horribly long ID network number> <name of the server you wish to build>
 	e.g.:
         openstack server create --image "GOLD Fedora 27" --flavor m1.small --security-group SSH_and_ICMP --security-group default --key-name Dell_XPS15 --nic net-id=dab01c68-c25d-4051-ad5b-7b7b07f16f05 myTestServer
+	```
 
 We can now check if the machine is working. 
